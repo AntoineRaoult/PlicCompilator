@@ -1,0 +1,7 @@
+//Programme de test PLIC0
+programme sourceUn {
+    entier k ;
+    // On affecte 2 à k
+    k := 2 ;
+}
+//Commmentaire à la fin

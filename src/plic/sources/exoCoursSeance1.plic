@@ -1,0 +1,10 @@
+programme essai {
+entier i ;
+entier j ;
+entier k ;
+entier l ;
+i := 81 ;
+j := 2 ;
+ecrire i ;
+ecrire j ;
+}

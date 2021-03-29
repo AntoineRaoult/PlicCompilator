@@ -38,6 +38,14 @@ public class TDS {
         return null;
     }
 
+    public String toString() {
+        String res = "Declarations : \n";
+        for (Entree entree : this.map.keySet()) {
+            res += "    " + entree + " : " +  this.identifier(entree).getType() + "\n";
+        }
+        return res;
+    }
+
     public int getCptDepl() {
         return cptDepl;
     }

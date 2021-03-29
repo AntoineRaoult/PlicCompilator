@@ -17,6 +17,11 @@ public class Idf extends Acces {
 
     @Override
     public String toMips() {
-        return "lw $v0, " + this.symbole.getDeplacement() + "($s7)";
+        return "    " + "lw $v0, " + this.symbole.getDeplacement() + "($s7)" + "\n";
+    }
+
+    @Override
+    public String getAdresse() {
+        return "    " + "la $a0, " + this.adresse + "($s7)" + "\n";
     }
 }

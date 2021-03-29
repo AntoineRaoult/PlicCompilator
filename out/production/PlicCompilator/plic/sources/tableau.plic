@@ -1,12 +1,12 @@
 programme essai {
-entier i ;
-entier j ;
-entier k ;
-entier l ;
 tableau [ 5 ] tab ;
-tab [ 0 ] := 1 ;
-i := 81 ;
-j := 2 ;
+entier i ;
+tab [ 0 ] := 0 ;
+tab [ 1 ] := 1 ;
+ecrire tab [ 0 ] ;
+ecrire tab [ 1 ] ;
+i := tab [ 0 ] ;
 ecrire i ;
-ecrire j ;
+tab [ 2 ] := tab [ 0 ] ;
+ecrire tab [ 2 ] ;
 }

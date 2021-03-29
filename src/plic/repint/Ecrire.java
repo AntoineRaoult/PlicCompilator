@@ -22,8 +22,8 @@ public class Ecrire extends Instruction {
 
     @Override
     String toMips() {
-        String res = "    #Ecrire.toMips() " + this.toString() + "\n";
-        res += "    " + expression.toMips() + "\n"; //val de l'expr dans $v0
+        String res = "    #Ecrire.toMips() " + this.toString();
+        res += expression.toMips();  //val de l'expr dans $v0
         res += "    " + "move $a0, $v0" + "\n"; //on bouge dans $a0 pour affichage
         res += "    " + "li $v0, 1" + "\n";
         res += "    syscall\n\n";

@@ -25,10 +25,24 @@ public class Affectation extends Instruction {
 
     @Override
     String toMips() {
-        String res = "    #Affectation.toMips() " + this.toString() + "\n";
-        res += "    la $a0, " + acces.getAdresse() +"\n";
-        res += "    " + expression.toMips() + "\n";
-        res += "    sw $v0, ($a0)\n";
+        String res = "    #Affectation.toMips() " + this.toString();
+        //Code qui calcule la valeur de l’expression dans $v0
+        res += expression.toMips();
+
+        //Empiler $v0
+        res += "    " + "sw $v0, 0($sp)" + "\n";
+        res += "    " + "sub $sp, $sp, 4" + "\n";
+
+        //Code qui calcule l’adresse de l’accès dans $a0
+        res += acces.getAdresse();
+
+        //Depiler $v0
+        res += "    " + "add $sp, $sp, 4" + "\n";
+        res += "    " + "lw $v0, 0($sp)" + "\n";
+
+        //Ranger $v0 à l’adresse contenue dans $a0
+        res += "    " + "sw $v0, ($a0)" + "\n";
+
         res += "\n";
         return res;
     }

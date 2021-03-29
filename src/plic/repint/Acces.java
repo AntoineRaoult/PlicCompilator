@@ -17,13 +17,12 @@ public abstract class Acces extends Expression {
         if (this.symbole == null) throw new ErreurSemantique("IDF non existant : " + nom);
     }
 
-    public String getAdresse() {
-        return this.adresse + "($s7)";
-    }
-
+    @Override
     public String getType() {
         return this.symbole.getType();
     }
 
     public abstract String toMips();
+
+    public abstract String getAdresse();
 }

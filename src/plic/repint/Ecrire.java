@@ -27,6 +27,9 @@ public class Ecrire extends Instruction {
         res += "    " + "move $a0, $v0" + "\n"; //on bouge dans $a0 pour affichage
         res += "    " + "li $v0, 1" + "\n";
         res += "    syscall\n\n";
+        res += "    " + "li $v0, 4" + "\n";
+        res += "    " + "la $a0, retourLigne" + "\n";
+        res += "    " + "syscall" + "\n";
         return res;
     }
 }

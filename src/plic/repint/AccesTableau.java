@@ -34,6 +34,9 @@ public class AccesTableau extends Acces {
         //place la valeur de l'expression (index pour le tableau) dans $v0
         res += "    " + "#valeur de l'expression dans $v0" + "\n";
         res += expression.toMips();
+        res += "    " + "#on place la taille du tableau dans $t0 pour comparaison" + "\n";
+        res += "    " + "li $t0, " + idf.symbole.getTaille() + "\n";
+        res += "    " + "bge $v0, $t0, erreur" + "\n";
         //on multiplie l'index par -4 dans $v0 pour avoir le déplacement relatif au début du tableau
         res += "    " + "#on bouge $a0 de -4 * index" + "\n";
         res += "    " + "li $t1, -4" + "\n";

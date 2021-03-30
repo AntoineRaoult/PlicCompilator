@@ -102,14 +102,27 @@ public class AnalyseurSyntaxique {
     private Expression analyseExpression() throws ErreurSyntaxique {
         Expression expression = this.analyseOperande();
         if (!this.uniteCourante.equals(";") && !this.uniteCourante.equals("]")) {
-            this.analyseOperateur();
-            this.analyseOperande();
+            String operateur = this.analyseOperateur();
+            switch (operateur) {
+                case "+":
+                    expression = new Somme(expression,this.analyseExpression());
+                    break;
+                case "-":
+                    expression = new Soustraction(expression,this.analyseExpression());
+                    break;
+            }
         }
         return expression;
     }
 
-    private void analyseOperateur() throws ErreurSyntaxique {
-        throw new ErreurSyntaxique("pas d'operateur en plic0");
+    private String analyseOperateur() throws ErreurSyntaxique {
+        if(!this.uniteCourante.equals("+") && !this.uniteCourante.equals("-") )
+        throw new ErreurSyntaxique("operateur inconnu");
+        else {
+            String res = this.uniteCourante;
+            this.nextUniteCourant();
+            return res;
+        }
     }
 
     // csteEntiere || IDF
@@ -119,22 +132,26 @@ public class AnalyseurSyntaxique {
             this.nextUniteCourant();
             return nombre;
         } else if (this.estIdf()) {
-            String type = TDS.getInstance().identifier(new Entree(this.uniteCourante)).getType();
-            Idf idf = new Idf(this.uniteCourante);
-            if (type.equals("entier")) {
-                this.nextUniteCourant();
-                return idf;
-            } else if (type.equals("tableau")) {
-                this.nextUniteCourant();
-                analyseTerminal("[");
-                AccesTableau tab = new AccesTableau(idf, this.analyseExpression());
-                this.analyseTerminal("]");
-                return tab;
-            } else {
-                throw new ErreurSyntaxique("Type inconnu");
-            }
+            return this.analyseAcces();
         } else {
             throw new ErreurSyntaxique("operande attendu");
+        }
+    }
+
+    private Acces analyseAcces() throws ErreurSyntaxique {
+        String type = TDS.getInstance().identifier(new Entree(this.uniteCourante)).getType();
+        Idf idf = new Idf(this.uniteCourante);
+        if (type.equals("entier")) {
+            this.nextUniteCourant();
+            return idf;
+        } else if (type.equals("tableau")) {
+            this.nextUniteCourant();
+            analyseTerminal("[");
+            AccesTableau tab = new AccesTableau(idf, this.analyseExpression());
+            this.analyseTerminal("]");
+            return tab;
+        } else {
+            throw new ErreurSyntaxique("Type inconnu");
         }
     }
 

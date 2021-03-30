@@ -31,10 +31,11 @@ public class Bloc {
     }
 
     public String toMips() {
-        StringBuilder res = new StringBuilder(".text\nmain :\n    move $s7, $sp\n    add $sp, $sp, " + TDS.getInstance().getCptDepl()).append("\n\n");
+        StringBuilder res = new StringBuilder(".data\n    erreurDebordement: .asciiz \"ERREUR: debordement tableau\"\n    retourLigne: .asciiz \"\\n\"\n.text\nmain :\n    move $s7, $sp\n    add $sp, $sp, " + TDS.getInstance().getCptDepl()).append("\n\n");
         for (Instruction instruction : instructions) {
             res.append(instruction.toMips());
         }
+        res.append("b apreserreur\nerreur :\n    li $v0, 4\n    la $a0, erreurDebordement\n    syscall\napreserreur:\n\n");
         res.append("end :\n    li $v0, 10\n    syscall");
         return res.toString();
     }

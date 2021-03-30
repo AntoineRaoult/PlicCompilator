@@ -15,18 +15,14 @@ public class Plic {
         File file = new File(fichier);
         AnalyseurSyntaxique as = new AnalyseurSyntaxique(file);
         Bloc bloc = as.analyse();
-        System.out.println(TDS.getInstance());
-        System.out.println(bloc);
-        System.out.println();
         System.out.println(bloc.toMips());
         bloc.verifier();
     }
 
     public static void main(String[] args) {
         try {
-            new Plic("src/plic/sources/tableau.plic");
+            new Plic(args[0]);
         } catch (Exception e) {
-            e.printStackTrace();
             System.out.println("ERREUR: " + e.getMessage());
         }
     }

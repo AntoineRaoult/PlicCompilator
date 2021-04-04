@@ -4,7 +4,8 @@ import plic.exceptions.ErreurSemantique;
 
 public abstract class Expression {
     abstract void verifier() throws ErreurSemantique;
-    abstract String toMips();
-    abstract String getType();
 
+    abstract String toMips();
+
+    public abstract String getType();
 }

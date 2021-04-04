@@ -24,5 +24,9 @@ public abstract class Acces extends Expression {
 
     public abstract String toMips();
 
+    public String getDeplacement() {
+        return String.valueOf(TDS.getInstance().identifier(new Entree(nom)).getDeplacement());
+    }
+
     public abstract String getAdresse();
 }

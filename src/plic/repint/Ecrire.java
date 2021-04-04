@@ -29,7 +29,7 @@ public class Ecrire extends Instruction {
         res += "    syscall\n\n";
         res += "    " + "li $v0, 4" + "\n";
         res += "    " + "la $a0, retourLigne" + "\n";
-        res += "    " + "syscall" + "\n";
+        res += "    " + "syscall" + "\n\n";
         return res;
     }
 }

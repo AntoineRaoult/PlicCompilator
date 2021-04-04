@@ -15,8 +15,8 @@ public class Plic {
         File file = new File(fichier);
         AnalyseurSyntaxique as = new AnalyseurSyntaxique(file);
         Bloc bloc = as.analyse();
-        System.out.println(bloc.toMips());
         bloc.verifier();
+        System.out.println(bloc.toMips());
     }
 
     public static void main(String[] args) {

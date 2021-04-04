@@ -15,6 +15,7 @@ public class Affectation extends Instruction {
     void verifier() throws ErreurSemantique {
         acces.verifier();
         expression.verifier();
+        //if(expression.getType().equals("booleen")) throw new ErreurSemantique("dans une affectation, le membre de droite doit être de type entier");
     }
 
     @Override

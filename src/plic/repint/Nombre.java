@@ -29,7 +29,7 @@ public class Nombre extends Expression {
     }
 
     @Override
-    String getType() {
+    public String getType() {
         return "entier";
     }
 }

@@ -2,7 +2,7 @@ package plic.repint;
 
 public class Idf extends Acces {
 
-    public Idf(String nom) {
+    public Idf(String nom){
         super(nom);
     }
 
@@ -22,6 +22,6 @@ public class Idf extends Acces {
 
     @Override
     public String getAdresse() {
-        return "    " + "la $a0, " + this.adresse + "($s7)" + "\n";
+        return "    " + "la $a0, " + this.getDeplacement() + "($s7)" + "\n";
     }
 }

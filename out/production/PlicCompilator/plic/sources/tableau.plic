@@ -1,8 +1,8 @@
 programme essai {
-tableau [ 5 ] tab ;
-tab [ 4 ] := 0 ;
-tab [ 1 ] := tab [ 0 ] ;
-ecrire tab [ 1 ] ;
-tab [ tab [ 0 ] ] := 3 ;
-ecrire tab [ 0 ] ;
+    entier i ;
+    entier j ;
+    i := 6 ;
+    j := 7 ;
+    i := ( i = j ) et ( j = i ) ;
+    ecrire i ;
 }

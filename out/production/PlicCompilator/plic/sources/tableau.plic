@@ -1,8 +1,16 @@
 programme essai {
     entier i ;
     entier j ;
-    i := 6 ;
-    j := 7 ;
-    i := ( i = j ) et ( j = i ) ;
-    ecrire i ;
+    tableau [ 5 ] tab ;
+    tableau [ 5 ] tabb ;
+    i := 1 ;
+    j := 2 ;
+    tab [ i + j ] := 1 ;
+    ecrire tab [ i + j ] ;
+
+    tabb [ tab [ i + j ] ] := 2 ;
+    ecrire tabb [ tab [ i + j ] ] ;
+
+    tab [ i + j ] := tabb [ tab [ i + j ] ] ;
+    ecrire tab [ i + j ] ;
 }

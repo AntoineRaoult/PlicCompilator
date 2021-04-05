@@ -149,7 +149,7 @@ public class AnalyseurSyntaxique {
             return new NegationEntier(this.analyseExpression());
         } else if (this.uniteCourante.equals("non")) {
             this.analyseTerminal("non");
-            return null;
+            return new NegationBooleen(this.analyseExpression());
         } else if (this.uniteCourante.equals("(")) {
             this.analyseTerminal("(");
             Expression res = this.analyseExpression();
@@ -195,7 +195,7 @@ public class AnalyseurSyntaxique {
     }
 
     private boolean estIdf() {
-        if (uniteCourante.equals("EOF")) return false;
+        if (uniteCourante.equals("EOF") || uniteCourante.equals("non")) return false;
         char[] lettres = uniteCourante.toCharArray();
         for (char lettre : lettres) {
             if (!(Character.isLetter(lettre))) {

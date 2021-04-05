@@ -13,6 +13,7 @@ public class NegationEntier extends Expression{
     @Override
     void verifier() throws ErreurSemantique {
         expression.verifier();
+        if(!expression.getType().equals("entier")) throw new ErreurSemantique("une negation d'entier doit etre sur un entier");
     }
 
     @Override
@@ -25,5 +26,10 @@ public class NegationEntier extends Expression{
     @Override
     public String getType() {
         return "entier";
+    }
+
+    @Override
+    public String toString() {
+        return "- " + expression;
     }
 }

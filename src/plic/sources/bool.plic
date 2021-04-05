@@ -1,0 +1,8 @@
+programme test {
+    entier i ;
+    entier j ;
+    entier z ;
+    i := 5 ;
+    j := 6 ;
+    ecrire non ( j = i ) ;
+}

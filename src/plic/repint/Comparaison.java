@@ -19,10 +19,12 @@ public class Comparaison extends Expression {
     void verifier() throws ErreurSemantique {
         this.e1.verifier();
         this.e2.verifier();
-        if(typeComparaison.equals("et") || typeComparaison.equals("ou")) {
-            if(this.e1.getType().equals("entier") || this.e2.getType().equals("entier")) throw new ErreurSemantique("et / ou avec un membre entier");
+        if (typeComparaison.equals("et") || typeComparaison.equals("ou")) {
+            if (this.e1.getType().equals("entier") || this.e2.getType().equals("entier"))
+                throw new ErreurSemantique("et / ou avec un membre entier");
         } else {
-            if(this.e1.getType().equals("booleen") || this.e2.getType().equals("booleen")) throw new ErreurSemantique("comparaison d'entiers avec un membre booleen");
+            if (this.e1.getType().equals("booleen") || this.e2.getType().equals("booleen"))
+                throw new ErreurSemantique("comparaison d'entiers avec un membre booleen");
         }
     }
 
@@ -34,16 +36,16 @@ public class Comparaison extends Expression {
         res += e1.toMips();
 
         //Empiler $v0
-        res += "    " + "#on empile $v0" +"\n";
+        res += "    " + "#on empile $v0" + "\n";
         res += "    " + "sw $v0, 0($sp)" + "\n";
         res += "    " + "sub $sp, $sp, 4" + "\n";
 
         //calcul de e2 dans $v0
-        res += "    " + "#calcul de b dans $v0" +"\n";
+        res += "    " + "#calcul de b dans $v0" + "\n";
         res += e2.toMips();
 
         //Depiler $v0 dans $v1
-        res += "    " + "#on depile $v0" +"\n";
+        res += "    " + "#on depile $v0" + "\n";
         res += "    " + "add $sp, $sp, 4" + "\n";
         res += "    " + "lw $v1, 0($sp)" + "\n";
         //on a e1 dans $v1 et e2 dans $v0
@@ -91,5 +93,10 @@ public class Comparaison extends Expression {
                 break;
         }
         return res;
+    }
+
+    @Override
+    public String toString() {
+        return e1 + " " + typeComparaison + " " + e2;
     }
 }

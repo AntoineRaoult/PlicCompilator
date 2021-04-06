@@ -1,0 +1,8 @@
+programme test {
+    entier i ;
+    i := 0 ;
+    tantque ( i <= 8 ) repeter {
+        ecrire i ;
+        i := i + 1 ;
+    }
+}

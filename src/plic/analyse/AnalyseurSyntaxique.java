@@ -16,18 +16,18 @@ public class AnalyseurSyntaxique {
         this.analex = new AnalyseurLexical(file);
     }
 
-    public Bloc analyse() throws ErreurSyntaxique, DoubleDeclaration {
+    public Programme analyse() throws ErreurSyntaxique, DoubleDeclaration {
         this.nextUniteCourant();
-        Bloc res = this.analyseProg();
+        Programme res = this.analyseProg();
         if (!this.uniteCourante.equals("EOF")) throw new ErreurSyntaxique("EOF attendu");
         return res;
     }
 
-    private Bloc analyseProg() throws ErreurSyntaxique, DoubleDeclaration {
+    private Programme analyseProg() throws ErreurSyntaxique, DoubleDeclaration {
         analyseTerminal("programme");
         if (!this.estIdf()) throw new ErreurSyntaxique("idf attendu");
         this.nextUniteCourant();
-        return this.analyseBloc();
+        return new Programme(this.analyseBloc());
     }
 
     private Bloc analyseBloc() throws ErreurSyntaxique, DoubleDeclaration {
@@ -78,24 +78,86 @@ public class AnalyseurSyntaxique {
         }
     }
 
-    private Instruction analyseInstruction() throws ErreurSyntaxique {
+    private Instruction analyseInstruction() throws ErreurSyntaxique, DoubleDeclaration {
         Instruction res;
         //ecrire
         if (this.uniteCourante.equals("ecrire")) {
             res = this.analyseEcrire();
-            //affectation
+        } else if (this.uniteCourante.equals("si")) {
+            res = this.analyseCondition();
+        } else if (this.uniteCourante.equals("pour") || this.uniteCourante.equals("tantque")) {
+            res = this.analyseIteration();
+        } else if (this.uniteCourante.equals("lire")) {
+            res = this.analyseLire();
         } else if (this.estIdf()) {
             res = this.analyseAffectation();
         } else {
             res = null;
         }
-        this.analyseTerminal(";");
+        return res;
+    }
+
+    private Lire analyseLire() throws ErreurSyntaxique {
+        this.analyseTerminal("lire");
+        if (this.estIdf()) {
+            Lire res = new Lire(new Idf(this.uniteCourante));
+            this.nextUniteCourant();
+            this.analyseTerminal(";");
+            return res;
+        } else {
+            throw new ErreurSyntaxique("idf attendu");
+        }
+    }
+
+    private Condition analyseCondition() throws ErreurSyntaxique, DoubleDeclaration {
+        this.analyseTerminal("si");
+        this.analyseTerminal("(");
+        Expression condition = this.analyseExpression();
+        this.analyseTerminal(")");
+        this.analyseTerminal("alors");
+        Bloc alors = this.analyseBloc();
+        if (this.uniteCourante.equals("sinon")) {
+            this.analyseTerminal("sinon");
+            Bloc sinon = this.analyseBloc();
+            return new Condition(condition, alors, sinon);
+        } else {
+            return new Condition(condition, alors);
+        }
+    }
+
+    private Iteration analyseIteration() throws ErreurSyntaxique, DoubleDeclaration {
+        Iteration res;
+        if (this.uniteCourante.equals("pour")) {
+            this.analyseTerminal("pour");
+            if (this.estIdf()) {
+                Idf idf = new Idf(this.uniteCourante);
+                Expression e1 = this.analyseExpression();
+                this.analyseTerminal("..");
+                Expression e2 = this.analyseExpression();
+                this.analyseTerminal("repeter");
+                Bloc bloc = this.analyseBloc();
+                res = new Pour(idf,e1,e2,bloc);
+            } else {
+                throw new ErreurSyntaxique("idf attendu");
+            }
+        } else if (this.uniteCourante.equals("tantque")) {
+            this.analyseTerminal("tantque");
+            this.analyseTerminal("(");
+            Expression condition = this.analyseExpression();
+            this.analyseTerminal(")");
+            this.analyseTerminal("repeter");
+            Bloc bloc = this.analyseBloc();
+            res = new Tantque(condition,bloc);
+        } else {
+            throw new ErreurSyntaxique("mot-cle d'iteration inconnu");
+        }
         return res;
     }
 
     private Ecrire analyseEcrire() throws ErreurSyntaxique {
         this.analyseTerminal("ecrire");
         Expression res = this.analyseExpression();
+        this.analyseTerminal(";");
         return new Ecrire(res);
     }
 
@@ -116,7 +178,7 @@ public class AnalyseurSyntaxique {
                     expression = new Multiplication(expression, operande);
                     break;
                 default:
-                    expression = new Comparaison(expression,operande,operateur);
+                    expression = new Comparaison(expression, operande, operateur);
                     break;
             }
         }
@@ -165,6 +227,7 @@ public class AnalyseurSyntaxique {
             Acces acces = this.analyseAcces();
             this.analyseTerminal(":=");
             Expression expression = this.analyseExpression();
+            this.analyseTerminal(";");
             return new Affectation(acces, expression);
         } else {
             throw new ErreurSyntaxique("idf attendu");

@@ -3,6 +3,7 @@ package plic;
 import plic.analyse.AnalyseurSyntaxique;
 import plic.exceptions.ErreurSyntaxique;
 import plic.repint.Bloc;
+import plic.repint.Programme;
 import plic.repint.TDS;
 
 import java.io.File;
@@ -14,15 +15,16 @@ public class Plic {
         if(!split[split.length-1].equals("plic")) throw new Exception("Suffixe incorrect");
         File file = new File(fichier);
         AnalyseurSyntaxique as = new AnalyseurSyntaxique(file);
-        Bloc bloc = as.analyse();
-        bloc.verifier();
-        System.out.println(bloc.toMips());
+        Programme prog = as.analyse();
+        prog.verifier();
+        System.out.println(prog.toMips());
     }
 
     public static void main(String[] args) {
         try {
             new Plic(args[0]);
         } catch (Exception e) {
+            e.printStackTrace();
             System.out.println("ERREUR: " + e.getMessage());
         }
     }

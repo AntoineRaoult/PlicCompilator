@@ -50,7 +50,7 @@ public class Comparaison extends Expression {
         res += "    " + "lw $v1, 0($sp)" + "\n";
         //on a e1 dans $v1 et e2 dans $v0
 
-        res += "    " + getMipsComparaison() + " $v0, $v0, $v1" + "\n";
+        res += "    " + getMipsComparaison() + " $v0, $v1, $v0" + "\n";
 
         return res;
     }

@@ -16,12 +16,19 @@ public class Lire extends Instruction{
     }
 
     @Override
-    String toMips() {
-        return null;
+    public String toString() {
+        return "    " + "Lire : " + idf + "\n";
     }
 
     @Override
-    public String toString() {
-        return "    " + "Lire : " + idf + "\n";
+    String toMips() {
+        String res = "    " + "#Lire " + this.idf.toString() + "\n";
+        res += "    " + "li $v0, 5" + "\n";
+        res += "    " + "syscall" + "\n";
+
+        res += idf.getAdresse();
+        res += "    " + "sw $v0, ($a0)" + "\n\n";
+
+        return res;
     }
 }

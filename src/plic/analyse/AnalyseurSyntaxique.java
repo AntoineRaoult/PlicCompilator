@@ -131,6 +131,8 @@ public class AnalyseurSyntaxique {
             this.analyseTerminal("pour");
             if (this.estIdf()) {
                 Idf idf = new Idf(this.uniteCourante);
+                this.nextUniteCourant();
+                this.analyseTerminal("dans");
                 Expression e1 = this.analyseExpression();
                 this.analyseTerminal("..");
                 Expression e2 = this.analyseExpression();
@@ -164,7 +166,7 @@ public class AnalyseurSyntaxique {
     //Operande || Operande Operateur Operande
     private Expression analyseExpression() throws ErreurSyntaxique {
         Expression expression = this.analyseOperande();
-        if (!this.uniteCourante.equals(";") && !this.uniteCourante.equals("]")) {
+        if (!this.uniteCourante.equals(";") && !this.uniteCourante.equals("]") && !this.uniteCourante.equals("..") && !this.uniteCourante.equals("repeter")) {
             String operateur = this.analyseOperateur();
             Expression operande = this.analyseOperande();
             switch (operateur) {

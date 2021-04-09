@@ -92,7 +92,7 @@ public class AnalyseurSyntaxique {
         } else if (this.estIdf()) {
             res = this.analyseAffectation();
         } else {
-            res = null;
+            throw new ErreurSyntaxique("instruction attendue");
         }
         return res;
     }

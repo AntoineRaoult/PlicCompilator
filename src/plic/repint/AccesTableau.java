@@ -30,12 +30,14 @@ public class AccesTableau extends Acces {
     @Override
     public String getAdresse() throws ErreurSemantique {
         String res = "    " + "#on met l'adresse de " + this.toString() + "dans $a0" + "\n";
-        //adresse de la base du tableau dans $a0
-        res += "    " + "#adresse de la base du tableau" + "\n";
-        res += idf.getAdresse();
         //place la valeur de l'expression (index pour le tableau) dans $v0
         res += "    " + "#valeur de l'expression dans $v0" + "\n";
         res += expression.toMips();
+
+        //adresse de la base du tableau dans $a0
+        res += "    " + "#adresse de la base du tableau" + "\n";
+        res += idf.getAdresse();
+
         res += "    " + "#on place la taille du tableau dans $t0 pour comparaison" + "\n";
         res += "    " + "li $t0, " + idf.symbole.getTaille() + "\n";
         res += "    " + "bge $v0, $t0, erreur" + "\n";

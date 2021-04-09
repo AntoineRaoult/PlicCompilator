@@ -1,0 +1,5 @@
+programme idf {
+    entier j ;
+    j := 2 ;
+    entier i ;
+}

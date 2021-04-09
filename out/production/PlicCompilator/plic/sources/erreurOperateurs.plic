@@ -1,0 +1,6 @@
+// un exemple
+programme test {
+    entier j ;
+    j := 4 + 6 * 5 ;
+    ecrire j ;
+}

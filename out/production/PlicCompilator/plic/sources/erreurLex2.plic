@@ -1,0 +1,13 @@
+// Programme de test PLIC0
+
+// un deuxieme exemple
+programme prog {
+    entier $test ; // declaration de i
+    entier j ;
+    k := 5 ;
+    ecrire n ;
+    l := 10 ;
+    ecrire m ;
+    ecrire n ;
+}
+// dernier commentaire

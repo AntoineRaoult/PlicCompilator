@@ -1,0 +1,22 @@
+// Programme de test PLIC0
+programme prog {
+    entier k ;
+    entier j ;
+
+    // On affecte 2 à k
+    k := 2 ;
+    // On affecte 55 à j
+    j := 55 ;
+
+    ecrire k ;
+    ecrire j ;
+
+    // On change la valeur de j pour 34
+    j := 34 ;
+
+    ecrire j ;
+    ecrire 666 ;
+
+    // sortie attendue : 2 55 34 666
+
+}

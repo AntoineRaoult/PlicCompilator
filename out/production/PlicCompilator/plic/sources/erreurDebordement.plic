@@ -1,0 +1,14 @@
+// un exemple
+programme test {
+entier k ;
+entier i ;
+tableau [ 5 ] tab ; // un tableau de 8 entiers
+k := 3 ;
+i := 4 ;
+tab [ 6 ] := k ;
+tab [ 0 ] := i ;
+ecrire tab [ 6 ] ; // 3
+// ecrire tab [ 1 ] ; // 4
+
+}
+// sortie attendue : ERREUR : debordement

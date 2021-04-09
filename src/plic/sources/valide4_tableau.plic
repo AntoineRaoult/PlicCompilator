@@ -1,0 +1,11 @@
+// imbrication tableau
+programme test {
+entier k ;
+entier i ;
+tableau [ 5 ] tab ; // un tableau de 8 entiers
+k := 3 ;
+i := 2 ;
+tab [ 1 ] := k ;
+tab [ i ] := 1 ;
+ecrire tab [ tab [ i ] ] ; // 3
+}

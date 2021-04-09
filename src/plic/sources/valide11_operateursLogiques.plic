@@ -1,0 +1,24 @@
+programme test {
+entier k ;
+entier i ;
+entier j ;
+k := 1 ;
+i := 5 ;
+j := 5 ;
+
+ecrire ( i = j ) et ( j = i ) ; // 1
+ecrire ( i = j ) et ( k = i ) ; // 0
+
+ecrire ( i <= j ) ; // 1
+ecrire ( 4 >= j ) ; // 0
+
+ecrire ( k < j ) ; // 1
+ecrire ( 6 < j ) ; // 0
+
+ecrire ( 2 > k ) ; // 1
+ecrire ( k > j ) ; // 0
+
+ecrire non ( k > j ) ; // 1
+ecrire non ( 2 > k ) ; // 0
+
+}

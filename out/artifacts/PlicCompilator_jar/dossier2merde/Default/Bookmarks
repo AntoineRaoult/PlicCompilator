@@ -1,0 +1,47 @@
+{
+   "checksum": "db181b5784f32e5298dde9293e49eca7",
+   "roots": {
+      "bookmark_bar": {
+         "children": [ {
+            "date_added": "13261996388349346",
+            "guid": "e07d702c-9617-482b-bb5d-74424fbcc8bf",
+            "id": "5",
+            "name": "Antoine",
+            "type": "url",
+            "url": "http://localhost:63342/S3A_S00_KIEFFER_MULLER_RAOULT_TALEB/launch-antoine.html?_ijt=8hcv969d3e35ab4d2dm2833qlo"
+         }, {
+            "date_added": "13261996405243603",
+            "guid": "af856391-238b-4a34-a975-b24ca8e0e0e7",
+            "id": "6",
+            "name": "Léop",
+            "type": "url",
+            "url": "http://localhost:63342/S3A_S00_KIEFFER_MULLER_RAOULT_TALEB/launch-leo.html?_ijt=8hcv969d3e35ab4d2dm2833qlo"
+         } ],
+         "date_added": "13261996364960499",
+         "date_modified": "13261996405243603",
+         "guid": "00000000-0000-4000-a000-000000000002",
+         "id": "1",
+         "name": "Bookmarks",
+         "type": "folder"
+      },
+      "other": {
+         "children": [  ],
+         "date_added": "13261996364960501",
+         "date_modified": "0",
+         "guid": "00000000-0000-4000-a000-000000000003",
+         "id": "2",
+         "name": "Other bookmarks",
+         "type": "folder"
+      },
+      "synced": {
+         "children": [  ],
+         "date_added": "13261996364960502",
+         "date_modified": "0",
+         "guid": "00000000-0000-4000-a000-000000000004",
+         "id": "3",
+         "name": "Mobile bookmarks",
+         "type": "folder"
+      }
+   },
+   "version": 1
+}

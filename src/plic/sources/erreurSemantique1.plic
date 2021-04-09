@@ -1,0 +1,14 @@
+// Programme de test PLIC0
+
+// un deuxieme exemple
+programme prog {
+    entier i ; // declaration de i
+    entier j ;
+    m := 5 ;
+    ecrire i ;
+    j := 10 ;
+    ecrire j ;
+    ecrire i ;
+    ecrire 666 ;
+}
+// dernier commentaire

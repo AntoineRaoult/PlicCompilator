@@ -1,0 +1,17 @@
+programme prog {
+    entier i ; // declaration de i
+    entier k ;
+    entier l ;
+    i := 5 ;
+    ecrire i ;
+    k := 10 ;
+    ecrire k ;
+    ecrire i ;
+
+    si ( i = k ) alors { l := 18 ; }  sinon { l := 180 ; }  finsi
+    ecrire l ;
+
+    si ( i < k ) alors { l := 18 ; }  sinon { l := 180 ; }  finsi
+    ecrire l ;
+}
+

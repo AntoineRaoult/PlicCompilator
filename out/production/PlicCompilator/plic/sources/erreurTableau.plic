@@ -1,0 +1,4 @@
+programme erreurTab {
+tableau [ 0 ] tab ;
+tab [ 1 ] := 4 ;
+}

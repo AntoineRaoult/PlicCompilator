@@ -1,0 +1,21 @@
+// un exemple
+programme test {
+entier k ;
+entier i ;
+tableau [ 5 ] tab ; // un tableau de 8 entiers
+k := 1 ;
+i := 5 ;
+tab [ 2 ] := k ;
+tab [ 1 ] := i ;
+tab [ 1 + 2 ] := 7 ;
+ecrire tab [ 1 ] ; // 5
+ecrire tab [ 2 ] ; // 1
+ecrire tab [ 3 ] ; // 7
+tab [ k ] := 4 + i ;
+ecrire tab [ 1 ] ; // 9
+
+}
+// sortie attendue :
+// 5
+// 1
+// 7

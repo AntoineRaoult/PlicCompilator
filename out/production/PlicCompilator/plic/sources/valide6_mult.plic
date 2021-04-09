@@ -1,0 +1,13 @@
+programme test {
+entier k ;
+entier i ;
+entier m ;
+k := 7 ;
+i := 5 ;
+
+m := i * k ;
+ecrire m ;          // 35
+
+m := 6 * 4 ;
+ecrire m ;          // 24
+}

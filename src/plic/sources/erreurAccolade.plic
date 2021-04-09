@@ -1,0 +1,10 @@
+programme prog
+    entier % ; // declaration de i
+    entier j ;
+    k := 5 ;
+    ecrire n ;
+    l := 10 ;
+    ecrire m ;
+    ecrire n ;
+}
+// dernier commentaire

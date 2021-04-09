@@ -1,0 +1,14 @@
+programme prog {
+    entier i ; // declaration de i
+    entier k ;
+    entier l ;
+    i := 5 ;
+    ecrire i ;
+    k := 10 ;
+    ecrire k ;
+    ecrire i ;
+
+    tantque ( i > 1 ) repeter {
+        ecrire i ; i := i - 2 ;
+    } // 5 3
+}

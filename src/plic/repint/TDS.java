@@ -1,6 +1,7 @@
 package plic.repint;
 
 import plic.exceptions.DoubleDeclaration;
+import plic.exceptions.ErreurSemantique;
 
 import java.util.HashMap;
 
@@ -22,6 +23,10 @@ public class TDS {
         return TDS.instance;
     }
 
+    public static void resetTDS() {
+        TDS.getInstance().map = new HashMap<>();
+    }
+
     public void ajouter(Entree e, Symbole s) throws DoubleDeclaration {
         if (this.map.containsKey(e)) throw new DoubleDeclaration("Entree déjà existante");
         else {
@@ -31,17 +36,21 @@ public class TDS {
         }
     }
 
-    public Symbole identifier(Entree e) {
+    public Symbole identifier(Entree e) throws ErreurSemantique {
         for (Entree entree : this.map.keySet()) {
             if (entree.equals(e)) return this.map.get(entree);
         }
-        return null;
+        throw new ErreurSemantique("variable non déclarée");
     }
 
     public String toString() {
         String res = "Declarations : \n";
         for (Entree entree : this.map.keySet()) {
-            res += "    " + entree + " : " +  this.identifier(entree).getType() + "\n";
+            try {
+                res += "    " + entree + " : " +  this.identifier(entree).getType() + "\n";
+            } catch (ErreurSemantique erreurSemantique) {
+                erreurSemantique.printStackTrace();
+            }
         }
         return res;
     }

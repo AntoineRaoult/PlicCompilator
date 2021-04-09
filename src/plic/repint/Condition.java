@@ -36,7 +36,7 @@ public class Condition extends Instruction {
     }
 
     @Override
-    String toMips() {
+    String toMips() throws ErreurSemantique {
         String res = "    " + "#Si " + this.condition.toString() + "\n";
         res += condition.toMips();
         res += "    " + "beq $v0, 1, " + this.labelTrue + "\n";

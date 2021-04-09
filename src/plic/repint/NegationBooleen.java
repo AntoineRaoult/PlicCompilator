@@ -16,7 +16,7 @@ public class NegationBooleen extends Expression{
     }
 
     @Override
-    String toMips() {
+    String toMips() throws ErreurSemantique {
         String res = expression.toMips();
         res += "    " + "xor $v0, $v0, 1" + "\n";
         return res;

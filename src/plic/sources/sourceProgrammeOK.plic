@@ -1,9 +1,0 @@
-//Debut
-programme test {
-entier test ;
-
-test := 1 ;
-
-ecrire test ;
-}
-//EOF

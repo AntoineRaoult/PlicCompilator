@@ -25,7 +25,7 @@ public class Affectation extends Instruction {
     }
 
     @Override
-    String toMips() {
+    String toMips() throws ErreurSemantique {
         String res = "    #Affectation.toMips() " + this.toString();
         //Code qui calcule la valeur de l’expression dans $v0
         res += expression.toMips();

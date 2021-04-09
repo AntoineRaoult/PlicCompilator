@@ -1,11 +1,13 @@
 package plic.repint;
 
+import plic.exceptions.ErreurSemantique;
+
 public class AccesTableau extends Acces {
 
     private Idf idf;
     private Expression expression;
 
-    public AccesTableau(Idf idf, Expression expression) {
+    public AccesTableau(Idf idf, Expression expression) throws ErreurSemantique {
         super(idf.nom);
         this.idf = idf;
         this.expression = expression;
@@ -17,7 +19,7 @@ public class AccesTableau extends Acces {
     }
 
     @Override
-    public String toMips() {
+    public String toMips() throws ErreurSemantique {
         String res = "";
         //On met l'adresse de notre AccesTableau dans $a0
         res += this.getAdresse();
@@ -26,7 +28,7 @@ public class AccesTableau extends Acces {
     }
 
     @Override
-    public String getAdresse() {
+    public String getAdresse() throws ErreurSemantique {
         String res = "    " + "#on met l'adresse de " + this.toString() + "dans $a0" + "\n";
         //adresse de la base du tableau dans $a0
         res += "    " + "#adresse de la base du tableau" + "\n";

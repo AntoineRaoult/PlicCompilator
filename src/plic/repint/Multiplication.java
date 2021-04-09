@@ -18,7 +18,7 @@ public class Multiplication extends Expression{
     }
 
     @Override
-    String toMips() {
+    String toMips() throws ErreurSemantique {
         String res = "";
 
         // a := i * b ;

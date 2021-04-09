@@ -26,16 +26,19 @@ public class Pour extends Iteration {
     }
 
     @Override
-    String toMips() {
+    String toMips() throws ErreurSemantique {
         String res = "    " + "#Pour " + this.idf.toString() + "\n";
+        //valeur de départ dans l'idf
         res += e1.toMips();
         res += idf.getAdresse();
         res += "    " + "sw $v0, ($a0)" + "\n";
+
         res += this.labelAvant + ":" + "\n";
+
         res += idf.toMips();
         res += "    " + "move $v1, $v0" + "\n";
         res += e2.toMips();
-        res += "    " + "beq $v0, $v1, " + this.labelApres + "\n";
+        res += "    " + "blt $v0, $v1, " + this.labelApres + "\n";
         res += bloc.toMips();
         res += idf.getAdresse();
         res += idf.toMips();

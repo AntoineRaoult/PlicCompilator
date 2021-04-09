@@ -29,7 +29,7 @@ public class Comparaison extends Expression {
     }
 
     @Override
-    String toMips() {
+    String toMips() throws ErreurSemantique {
         String res = "";
 
         //calcul de e1 dans $v0

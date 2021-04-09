@@ -1,7 +1,0 @@
-programme test {
-    entier i ;
-    pour i dans 1 .. 10 repeter {
-        i := i + 1 ;
-        ecrire i ;
-    }
-}

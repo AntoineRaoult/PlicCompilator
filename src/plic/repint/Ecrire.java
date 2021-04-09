@@ -21,7 +21,7 @@ public class Ecrire extends Instruction {
     }
 
     @Override
-    String toMips() {
+    String toMips() throws ErreurSemantique {
         String res = "    #Ecrire.toMips() " + this.toString();
         res += expression.toMips();  //val de l'expr dans $v0
         res += "    " + "move $a0, $v0" + "\n"; //on bouge dans $a0 pour affichage

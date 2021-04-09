@@ -16,21 +16,21 @@ public class AnalyseurSyntaxique {
         this.analex = new AnalyseurLexical(file);
     }
 
-    public Programme analyse() throws ErreurSyntaxique, DoubleDeclaration {
+    public Programme analyse() throws ErreurSyntaxique, DoubleDeclaration, ErreurSemantique {
         this.nextUniteCourant();
         Programme res = this.analyseProg();
         if (!this.uniteCourante.equals("EOF")) throw new ErreurSyntaxique("EOF attendu");
         return res;
     }
 
-    private Programme analyseProg() throws ErreurSyntaxique, DoubleDeclaration {
+    private Programme analyseProg() throws ErreurSyntaxique, DoubleDeclaration, ErreurSemantique {
         analyseTerminal("programme");
         if (!this.estIdf()) throw new ErreurSyntaxique("idf attendu");
         this.nextUniteCourant();
         return new Programme(this.analyseBloc());
     }
 
-    private Bloc analyseBloc() throws ErreurSyntaxique, DoubleDeclaration {
+    private Bloc analyseBloc() throws ErreurSyntaxique, DoubleDeclaration, ErreurSemantique {
         Bloc res = new Bloc();
         this.analyseTerminal("{");
         while (uniteCourante.equals("entier") || uniteCourante.equals("tableau")) {
@@ -78,7 +78,7 @@ public class AnalyseurSyntaxique {
         }
     }
 
-    private Instruction analyseInstruction() throws ErreurSyntaxique, DoubleDeclaration {
+    private Instruction analyseInstruction() throws ErreurSyntaxique, DoubleDeclaration, ErreurSemantique {
         Instruction res;
         //ecrire
         if (this.uniteCourante.equals("ecrire")) {
@@ -97,7 +97,7 @@ public class AnalyseurSyntaxique {
         return res;
     }
 
-    private Lire analyseLire() throws ErreurSyntaxique {
+    private Lire analyseLire() throws ErreurSyntaxique, ErreurSemantique {
         this.analyseTerminal("lire");
         if (this.estIdf()) {
             Lire res = new Lire(new Idf(this.uniteCourante));
@@ -109,7 +109,7 @@ public class AnalyseurSyntaxique {
         }
     }
 
-    private Condition analyseCondition() throws ErreurSyntaxique, DoubleDeclaration {
+    private Condition analyseCondition() throws ErreurSyntaxique, DoubleDeclaration, ErreurSemantique {
         this.analyseTerminal("si");
         this.analyseTerminal("(");
         Expression condition = this.analyseExpression();
@@ -125,7 +125,7 @@ public class AnalyseurSyntaxique {
         }
     }
 
-    private Iteration analyseIteration() throws ErreurSyntaxique, DoubleDeclaration {
+    private Iteration analyseIteration() throws ErreurSyntaxique, DoubleDeclaration, ErreurSemantique {
         Iteration res;
         if (this.uniteCourante.equals("pour")) {
             this.analyseTerminal("pour");
@@ -156,7 +156,7 @@ public class AnalyseurSyntaxique {
         return res;
     }
 
-    private Ecrire analyseEcrire() throws ErreurSyntaxique {
+    private Ecrire analyseEcrire() throws ErreurSyntaxique, ErreurSemantique {
         this.analyseTerminal("ecrire");
         Expression res = this.analyseExpression();
         this.analyseTerminal(";");
@@ -164,9 +164,9 @@ public class AnalyseurSyntaxique {
     }
 
     //Operande || Operande Operateur Operande
-    private Expression analyseExpression() throws ErreurSyntaxique {
+    private Expression analyseExpression() throws ErreurSyntaxique, ErreurSemantique {
         Expression expression = this.analyseOperande();
-        if (!this.uniteCourante.equals(";") && !this.uniteCourante.equals("]") && !this.uniteCourante.equals("..") && !this.uniteCourante.equals("repeter")) {
+        if (!this.uniteCourante.equals(";") && !this.uniteCourante.equals("]") && !this.uniteCourante.equals("..") && !this.uniteCourante.equals("repeter") && !this.uniteCourante.equals("}")) {
             String operateur = this.analyseOperateur();
             Expression operande = this.analyseOperande();
             switch (operateur) {
@@ -201,7 +201,7 @@ public class AnalyseurSyntaxique {
     }
 
     // csteEntiere || IDF
-    private Expression analyseOperande() throws ErreurSyntaxique {
+    private Expression analyseOperande() throws ErreurSyntaxique, ErreurSemantique {
         if (this.estCsteEntiere()) {
             Nombre nombre = new Nombre(Integer.parseInt(this.uniteCourante));
             this.nextUniteCourant();
@@ -224,7 +224,7 @@ public class AnalyseurSyntaxique {
         }
     }
 
-    private Affectation analyseAffectation() throws ErreurSyntaxique {
+    private Affectation analyseAffectation() throws ErreurSyntaxique, ErreurSemantique {
         if (estIdf()) {
             Acces acces = this.analyseAcces();
             this.analyseTerminal(":=");
@@ -236,7 +236,7 @@ public class AnalyseurSyntaxique {
         }
     }
 
-    private Acces analyseAcces() throws ErreurSyntaxique {
+    private Acces analyseAcces() throws ErreurSyntaxique, ErreurSemantique {
         String nom = this.uniteCourante;
         String type = TDS.getInstance().identifier(new Entree(nom)).getType();
         Idf idf = new Idf(this.uniteCourante);

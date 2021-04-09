@@ -18,7 +18,7 @@ public class Tantque extends Iteration {
     }
 
     @Override
-    String toMips() {
+    String toMips() throws ErreurSemantique {
         String res = "    " + "#Tantque " + this.condition.toString() + "\n";
         res += this.labelAvant + ":" + "\n";
         res += this.condition.toMips();

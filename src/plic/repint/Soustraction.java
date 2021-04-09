@@ -18,7 +18,7 @@ public class Soustraction extends Expression{
     }
 
     @Override
-    String toMips() {
+    String toMips() throws ErreurSemantique {
         String res = "    " + "#soustraction de " + e1 + " et " + e2 + "\n";
 
         // a := i - b ;

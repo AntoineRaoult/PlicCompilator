@@ -14,7 +14,7 @@ public class AnalyseurLexical {
         try {
             this.scanner = new Scanner(file);
         } catch (FileNotFoundException e) {
-            throw new Exception("Fichier source absent");
+            throw new ErreurSyntaxique("Fichier source absent");
         }
     }
 

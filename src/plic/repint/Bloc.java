@@ -30,7 +30,7 @@ public class Bloc {
         return res.substring(0,res.length()-1);
     }
 
-    public String toMips() {
+    public String toMips() throws ErreurSemantique {
         StringBuilder res = new StringBuilder();
         for (Instruction instruction : instructions) {
             res.append(instruction.toMips());

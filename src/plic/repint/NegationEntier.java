@@ -17,7 +17,7 @@ public class NegationEntier extends Expression{
     }
 
     @Override
-    String toMips() {
+    String toMips() throws ErreurSemantique {
         String res = expression.toMips();
         res += "    " + "neg $v0, $v0" + "\n";
         return res;

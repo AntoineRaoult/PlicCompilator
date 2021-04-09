@@ -21,7 +21,7 @@ public class Lire extends Instruction{
     }
 
     @Override
-    String toMips() {
+    String toMips() throws ErreurSemantique {
         String res = "    " + "#Lire " + this.idf.toString() + "\n";
         res += "    " + "li $v0, 5" + "\n";
         res += "    " + "syscall" + "\n";

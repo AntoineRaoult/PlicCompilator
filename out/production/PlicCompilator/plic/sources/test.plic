@@ -1,7 +1,18 @@
 programme test {
     entier i ;
     pour i dans 1 .. 10 repeter {
+        entier j ;
+        pour j dans 1 .. 10 repeter {
+            entier k ;
+            ecrire i + j ;
+            ecrire k ;
+        }
+        pour j dans 1 .. 10 repeter {
+            entier k ;
+            ecrire i + j ;
+            ecrire k ;
+        }
         ecrire i ;
     }
-    ecrire i ;
+        ecrire k ;
 }

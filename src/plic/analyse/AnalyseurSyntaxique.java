@@ -9,6 +9,8 @@ import java.io.File;
 
 public class AnalyseurSyntaxique {
 
+    private Bloc currentBloc;
+
     private AnalyseurLexical analex;
     private String uniteCourante;
 
@@ -31,25 +33,28 @@ public class AnalyseurSyntaxique {
     }
 
     private Bloc analyseBloc() throws ErreurSyntaxique, DoubleDeclaration, ErreurSemantique {
-        Bloc res = new Bloc();
+        Bloc bloc = new Bloc(this.currentBloc);
+        this.currentBloc = bloc;
         this.analyseTerminal("{");
         while (uniteCourante.equals("entier") || uniteCourante.equals("tableau")) {
-            analyseDeclaration();
+            bloc.ajouterDeclaration(analyseDeclaration());
         }
-        res.ajouter(this.analyseInstruction());
+        bloc.ajouterInstruction(this.analyseInstruction());
         while (this.estIdf() || this.uniteCourante.equals("ecrire")) {
-            res.ajouter(this.analyseInstruction());
+            bloc.ajouterInstruction(this.analyseInstruction());
         }
         this.analyseTerminal("}");
-        return res;
+        this.currentBloc = bloc.getParent();
+        return bloc;
     }
 
     //TYPE idf
-    private void analyseDeclaration() throws ErreurSyntaxique, DoubleDeclaration {
+    private Declaration analyseDeclaration() throws ErreurSyntaxique, DoubleDeclaration {
         String type = this.analyseType();
+        Declaration decla;
         if (type.equals("entier")) {
             if (!this.estIdf()) throw new ErreurSyntaxique("idf attendu");
-            TDS.getInstance().ajouter(new Entree(this.uniteCourante), new Symbole(type));
+            decla = new Declaration(new Entree(this.uniteCourante), new Symbole(type));
         } else if (type.equals("tableau")) {
             this.analyseTerminal("[");
             if (!this.estCsteEntiere())
@@ -59,12 +64,13 @@ public class AnalyseurSyntaxique {
                 throw new ErreurSyntaxique("la taille d'un tableau ne peut pas être nulle ou négative");
             this.nextUniteCourant();
             this.analyseTerminal("]");
-            TDS.getInstance().ajouter(new Entree(this.uniteCourante), new Symbole(type, val));
+            decla = new Declaration(new Entree(this.uniteCourante), new Symbole(type, val));
         } else {
             throw new ErreurSyntaxique("entier ou tableau attendu"); //normalement impossible d'arriver là
         }
         this.nextUniteCourant();
         this.analyseTerminal(";");
+        return decla;
     }
 
     //idf || tableau [ cstEntiere ]
@@ -240,6 +246,7 @@ public class AnalyseurSyntaxique {
         String nom = this.uniteCourante;
         String type = TDS.getInstance().identifier(new Entree(nom)).getType();
         Idf idf = new Idf(this.uniteCourante);
+        if(!this.currentBloc.peutAcceder(new Entree(idf.getNom()))) throw new ErreurSemantique("la variable " + idf.getNom() + " n'est pas accessible depuis ce bloc");
         if (type.equals("entier")) {
             this.nextUniteCourant();
             return idf;

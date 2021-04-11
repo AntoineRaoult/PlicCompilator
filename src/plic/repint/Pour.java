@@ -29,7 +29,7 @@ public class Pour extends Iteration {
     String toMips() throws ErreurSemantique {
         String res = "    " + "#Pour " + this.idf.toString() + "\n";
 
-        //valeur de départ dans l'idf
+        //valeur de départ dans la variable d'iteration
         res += e1.toMips();
         res += idf.getAdresse();
         res += "    " + "sw $v0, ($a0)" + "\n";

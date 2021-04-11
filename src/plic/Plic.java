@@ -24,7 +24,6 @@ public class Plic {
         try {
             new Plic(args[0]);
         } catch (Exception e) {
-            e.printStackTrace();
             System.out.println("ERREUR: " + e.getMessage());
         }
     }

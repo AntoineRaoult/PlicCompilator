@@ -23,13 +23,18 @@ public class TDS {
         return TDS.instance;
     }
 
-    public void ajouter(Entree e, Symbole s) throws DoubleDeclaration {
-        if (this.map.containsKey(e)) throw new DoubleDeclaration("Entree déjà existante");
-        else {
-            s.setDeplacement(this.cptDepl);
-            this.cptDepl -= s.getTaille() * 4;
-            this.map.put(e, s);
+    public void ajouter(Bloc b, Entree e, Symbole s) throws DoubleDeclaration {
+        if (this.map.containsKey(e)) {
+            if (b.peutAcceder(e)) {
+                throw new DoubleDeclaration("Entree déjà existante");
+            }
+            else {
+                this.map.remove(e);
+            }
         }
+        s.setDeplacement(this.cptDepl);
+        this.cptDepl -= s.getTaille() * 4;
+        this.map.put(e, s);
     }
 
     public Symbole identifier(Entree e) throws ErreurSemantique {
@@ -43,7 +48,7 @@ public class TDS {
         String res = "Declarations : \n";
         for (Entree entree : this.map.keySet()) {
             try {
-                res += "    " + entree + " : " +  this.identifier(entree).getType() + "\n";
+                res += "    " + entree + " : " + this.identifier(entree).getType() + "\n";
             } catch (ErreurSemantique erreurSemantique) {
                 erreurSemantique.printStackTrace();
             }

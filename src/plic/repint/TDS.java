@@ -23,10 +23,6 @@ public class TDS {
         return TDS.instance;
     }
 
-    public static void resetTDS() {
-        TDS.getInstance().map = new HashMap<>();
-    }
-
     public void ajouter(Entree e, Symbole s) throws DoubleDeclaration {
         if (this.map.containsKey(e)) throw new DoubleDeclaration("Entree déjà existante");
         else {
@@ -57,5 +53,12 @@ public class TDS {
 
     public int getCptDepl() {
         return cptDepl;
+    }
+
+    /**
+     * For tests
+     */
+    public static void resetTDS() {
+        TDS.getInstance().map = new HashMap<>();
     }
 }

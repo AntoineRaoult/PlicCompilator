@@ -28,24 +28,49 @@ public class Pour extends Iteration {
     @Override
     String toMips() throws ErreurSemantique {
         String res = "    " + "#Pour " + this.idf.toString() + "\n";
+
         //valeur de départ dans l'idf
         res += e1.toMips();
         res += idf.getAdresse();
         res += "    " + "sw $v0, ($a0)" + "\n";
 
+        //Label avant
         res += this.labelAvant + ":" + "\n";
 
+        //On place la variable d'iteration dans $v1
         res += idf.toMips();
         res += "    " + "move $v1, $v0" + "\n";
+
+        //On place l'expression d'arrivee + 1 dans $v0
         res += e2.toMips();
-        res += "    " + "blt $v0, $v1, " + this.labelApres + "\n";
+        res += "    " + "add $v0, $v0, 1" + "\n";
+
+        //Test si fin de boucle
+        res += "    " + "beq $v0, $v1, " + this.labelApres + "\n";
+
+        //Execution du code du pour
         res += bloc.toMips();
+
+        //On place la valeur de la var d'iteration dans $v0 et son adresse dans $a0
         res += idf.getAdresse();
         res += idf.toMips();
+
+        //On ajoute 1 (chaque tour de boucle) et on save
         res += "    " + "add $v0, $v0, 1" + "\n";
         res += "    " + "sw $v0, ($a0)" + "\n";
+
+        //On remonte au label pour refaire le test
         res += "    " + "b " + this.labelAvant + "\n";
+
+        //Label apres
         res += this.labelApres + ":" + "\n";
+
+        //On enleve 1 a la var d'iteration car on a du aller à +1 pour le test
+        res += idf.getAdresse();
+        res += idf.toMips();
+        res += "    " + "sub $v0, $v0, 1" + "\n";
+        res += "    " + "sw $v0, ($a0)" + "\n";
+
         return res;
     }
 }
